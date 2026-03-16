@@ -61,6 +61,23 @@
 3\. Do your work and commit as you go
 
 4\. Push your branch and open a Pull Request when ready
+1\. Pull latest from main: git pull origin main
+
+2\. Switch to your branch:
+
+&nbsp;  - Nusrath: git checkout feature/email-scanner
+
+&nbsp;  - Fionn: git checkout feature/link-checker
+
+&nbsp;  - Callum: git checkout feature/password-checker
+
+&nbsp;  - Adam: git checkout feature/scan-history
+
+3\. Pull main into your branch: git merge main
+
+4\. Do your work and commit as you go
+
+5\. Push your branch and open a Pull Request when ready
 
 
 
