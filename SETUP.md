@@ -54,6 +54,13 @@
 
 \## How to work on your module
 
+1\. Pull latest from main
+
+2\. Create a branch for your feature e.g. git checkout -b yourname/feature
+
+3\. Do your work and commit as you go
+
+4\. Push your branch and open a Pull Request when ready
 1\. Pull latest from main: git pull origin main
 
 2\. Switch to your branch:
