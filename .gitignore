@@ -13,3 +13,7 @@ target/
 # OS files
 .DS_Store
 Thumbs.db
+backend/run-backend/target/classes/com/run/TestRepository.class
+backend/run-backend/target/classes/com/run/App.class
+backend/run-backend/target/classes/com/run/App.class
+backend/run-backend/target/classes/com/run/TestEntity.class
