@@ -1,3 +1,4 @@
+package com.run;
 public class ScanResult {
     private String scanType;   // e.g. "EMAIL", "URL", "FILE"
     private String target;     // what was scanned, e.g. the URL or email
