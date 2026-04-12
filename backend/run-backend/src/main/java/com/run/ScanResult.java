@@ -1,4 +1,8 @@
+
+
+
 package com.run;
+
 
 public class ScanResult {
     private String scanType;   // e.g. "EMAIL", "URL", "FILE"
