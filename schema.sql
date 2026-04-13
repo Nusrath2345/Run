@@ -1,0 +1,14 @@
+CREATE DATABASE IF NOT EXISTS run_db
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
+USE run_db;
+
+CREATE TABLE IF NOT EXISTS scan_results (
+    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
+    scan_type   VARCHAR(20)  NOT NULL,
+    target      VARCHAR(500) NOT NULL,
+    result      VARCHAR(50)  NOT NULL,
+    details     TEXT,
+    created_at  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
