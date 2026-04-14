@@ -1,7 +1,9 @@
 C:\Projects\run-project\backend\run-backend\src\main\java\com\run\emailScanner.java
 C:\Projects\run-project\backend\run-backend\src\main\java\com\run\TestEntity.java
 C:\Projects\run-project\backend\run-backend\src\main\java\com\run\models\ScanResult.java
+C:\Projects\run-project\backend\run-backend\src\main\java\com\run\config\CorsConfig.java
 C:\Projects\run-project\backend\run-backend\src\main\java\com\run\TestRepository.java
+C:\Projects\run-project\backend\run-backend\src\main\java\com\run\config\GlobalExceptionHandler.java
 C:\Projects\run-project\backend\run-backend\src\main\java\com\run\repositories\ScanResultRepository.java
 C:\Projects\run-project\backend\run-backend\src\main\java\com\run\TestController.java
 C:\Projects\run-project\backend\run-backend\src\main\java\com\run\App.java
