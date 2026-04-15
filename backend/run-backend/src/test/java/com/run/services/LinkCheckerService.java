@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+// checks a url for risk indicators and scores it
+// 0 = SAFE, 1-3 = SUSPICIOUS, 4+ = UNSAFE
 @Service
 public class LinkCheckerService {
 
@@ -74,7 +76,7 @@ public class LinkCheckerService {
 
         // url shortener
         if (URL_SHORTENERS.contains(host.toLowerCase())) {
-            warnings.add("URL shortener detected - the real destination is hidden");
+            warnings.add("URL shortener detected — the real destination is hidden");
             score += 2;
         }
 
@@ -101,7 +103,7 @@ public class LinkCheckerService {
             if (urlLower.contains(keyword)) {
                 warnings.add("Suspicious phishing keyword in URL: '" + keyword + "'");
                 score += 4;
-                break;
+                break;  // only count once
             }
         }
 
