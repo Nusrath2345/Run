@@ -5,15 +5,19 @@ import java.util.Arrays;
 
 public class PasswordCheckerUtil 
 {
+   
     private static final List<String> COMMON_PASSWORDS = Arrays.asList("password", "123456", "12345678", "qwerty", "abc123", "111111", "1234567890", "1234567", "password1", "12345");
     public static String checkStrength(String password) 
     {
-
-        for (String common : COMMON_PASSWORDS) {
-            if (password.toLowerCase().contains(common)) {
+        for (String common : COMMON_PASSWORDS) 
+        {
+            if (password.toLowerCase().contains(common)) 
+            {
                 return "WEAK";
             }
         }
+
+        
         int score = 0;
 
         if (password == null || password.isEmpty()) 
