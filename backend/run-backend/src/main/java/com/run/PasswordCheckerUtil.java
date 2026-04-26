@@ -1,14 +1,17 @@
 package com.run;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PasswordCheckerUtil 
 {
-   
+    
     private static final List<String> COMMON_PASSWORDS = Arrays.asList("password", "123456", "12345678", "qwerty", "abc123", "111111", "1234567890", "1234567", "password1", "12345");
     public static String checkStrength(String password) 
     {
+        List<String> suggestions = new ArrayList<>();
+
         for (String common : COMMON_PASSWORDS) 
         {
             if (password.toLowerCase().contains(common)) 
@@ -26,11 +29,21 @@ public class PasswordCheckerUtil
         }
 
         if (password.length() >= 8) score++;
+        else suggestions.add("Use at least 8 characters");
+
         if (password.length() >= 12) score++;
+
         if (password.matches(".*[A-Z].*")) score++;
+        else suggestions.add("Include uppercase letters");
+
         if (password.matches(".*[a-z].*")) score++;
+        else suggestions.add("Include lowercase letters");
+
         if (password.matches(".*\\d.*")) score++;
+        else suggestions.add("Include numbers");
+
         if (password.matches(".*[!@#$%^&*()].*")) score++;
+        else suggestions.add("Include special characters");
 
         if (score <= 2) 
             return "WEAK";
