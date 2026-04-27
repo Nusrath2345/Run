@@ -12,7 +12,7 @@ public class PasswordCheckerService
 {
     
     private static final List<String> COMMON_PASSWORDS = Arrays.asList("password", "123456", "12345678", "qwerty", "abc123", "111111", "1234567890", "1234567", "password1", "12345");
-    public static String checkStrength(String password) 
+    public String checkStrength(String password) 
     {
         List<String> suggestions = new ArrayList<>();
 
