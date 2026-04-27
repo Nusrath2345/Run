@@ -1,9 +1,11 @@
-package com.run;
+package com.run.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.*;
+
+import com.run.PasswordCheckerUtil;
 
 @RestController
 @RequestMapping("/api")
