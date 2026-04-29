@@ -11,67 +11,121 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.run.ui.MainFrame;
 
-public class PasswordCheckerPanel extends JPanel  {
+public class PasswordCheckerPanel extends JPanel {
 
     private JTextField passwordField;
     private JLabel strengthLabel;
     private JProgressBar strengthBar;
-    private JTextArea suggestionsArea;
+    private JPanel suggestionsPanel;
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    private MainFrame mainFrame;
     public PasswordCheckerPanel(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+
         setLayout(new BorderLayout());
-        setBackground(new Color(30, 30, 30));
+        setBackground(new Color(24, 24, 24));
 
-        // ================= TOP =================
-        JPanel topPanel = new JPanel(new GridLayout(3, 1));
-        topPanel.setBackground(new Color(30, 30, 30));
+        JPanel wrapper = new JPanel(new BorderLayout());
+        wrapper.setBackground(new Color(24, 24, 24));
 
-        JLabel title = new JLabel("Password Strength Checker");
+        JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        container.setBackground(new Color(24, 24, 24));
+        container.setBorder(BorderFactory.createEmptyBorder(20, 25, 20, 25));
+        container.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
+
+        // ================= TITLE =================
+        JLabel title = new JLabel("Password strength checker");
         title.setForeground(Color.WHITE);
-        title.setFont(new Font("Arial", Font.BOLD, 18));
+        title.setFont(new Font("Arial", Font.BOLD, 20));
+        title.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JLabel subtitle = new JLabel("Test your password strength and get suggestions");
-        subtitle.setForeground(Color.LIGHT_GRAY);
+        JLabel subtitle = new JLabel("Test how strong your password is and get improvement suggestions");
+        subtitle.setForeground(new Color(160, 160, 160));
+        subtitle.setFont(new Font("Arial", Font.PLAIN, 13));
+        subtitle.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        container.add(title);
+        container.add(Box.createVerticalStrut(20)); 
+        container.add(subtitle);
+        container.add(Box.createVerticalStrut(20)); 
+
+        // ================= INPUT =================
+        JLabel passwordLabel = new JLabel("PASSWORD");
+        passwordLabel.setForeground(new Color(130, 130, 130));
+        passwordLabel.setFont(new Font("Arial", Font.BOLD, 11));
+        passwordLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         passwordField = new JTextField();
-        passwordField.setToolTipText("Enter password");
+        passwordField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+        passwordField.setBackground(new Color(40, 40, 40));
+        passwordField.setForeground(Color.WHITE);
+        passwordField.setCaretColor(Color.WHITE);
+        passwordField.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        passwordField.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        topPanel.add(title);
-        topPanel.add(subtitle);
-        topPanel.add(passwordField);
+        JLabel helperText = new JLabel("Password is not stored or transmitted");
+        helperText.setForeground(new Color(110, 110, 110));
+        helperText.setFont(new Font("Arial", Font.PLAIN, 11));
+        helperText.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        add(topPanel, BorderLayout.NORTH);
+        container.add(passwordLabel);
+        container.add(Box.createVerticalStrut(5));
+        container.add(passwordField);
+        container.add(Box.createVerticalStrut(5));
+        container.add(helperText);
+        container.add(Box.createVerticalStrut(80)); 
 
-        // ================= CENTER =================
-        JPanel centerPanel = new JPanel();
-        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-        centerPanel.setBackground(new Color(30, 30, 30));
+        // ================= STRENGTH =================
+        JPanel strengthRow = new JPanel(new BorderLayout());
+        strengthRow.setBackground(new Color(24, 24, 24));
+        strengthRow.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        strengthLabel = new JLabel("Strength: -");
-        strengthLabel.setForeground(Color.WHITE);
+        JLabel strengthTitle = new JLabel("STRENGTH");
+        strengthTitle.setForeground(new Color(130, 130, 130));
+        strengthTitle.setFont(new Font("Arial", Font.BOLD, 11));
+
+        strengthLabel = new JLabel("-");
+        strengthLabel.setForeground(Color.ORANGE);
+
+        strengthRow.add(strengthTitle, BorderLayout.WEST);
+        strengthRow.add(strengthLabel, BorderLayout.EAST);
 
         strengthBar = new JProgressBar(0, 100);
-        strengthBar.setStringPainted(false);
+        strengthBar.setMaximumSize(new Dimension(Integer.MAX_VALUE, 8));
+        strengthBar.setBorderPainted(false);
+        strengthBar.setBackground(new Color(60, 60, 60));
+        strengthBar.setForeground(Color.ORANGE);
+        strengthBar.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        suggestionsArea = new JTextArea(6, 30);
-        suggestionsArea.setEditable(false);
-        suggestionsArea.setBackground(new Color(40, 40, 40));
-        suggestionsArea.setForeground(Color.WHITE);
+        container.add(strengthRow);
+        container.add(Box.createVerticalStrut(8));
+        container.add(strengthBar);
+        container.add(Box.createVerticalStrut(50)); 
 
-        centerPanel.add(strengthLabel);
-        centerPanel.add(strengthBar);
-        centerPanel.add(Box.createVerticalStrut(10));
-        centerPanel.add(new JLabel("Suggestions:"));
-        centerPanel.add(suggestionsArea);
+        // ================= SUGGESTIONS =================
+        JLabel suggestionsTitle = new JLabel("SUGGESTIONS");
+        suggestionsTitle.setForeground(new Color(130, 130, 130));
+        suggestionsTitle.setFont(new Font("Arial", Font.BOLD, 11));
+        suggestionsTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        add(centerPanel, BorderLayout.CENTER);
+        suggestionsPanel = new JPanel();
+        suggestionsPanel.setLayout(new BoxLayout(suggestionsPanel, BoxLayout.Y_AXIS));
+        suggestionsPanel.setBackground(new Color(35, 35, 35));
+        suggestionsPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(70, 70, 70)),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)
+        ));
+        suggestionsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+ 
+        container.add(suggestionsTitle);
+        container.add(Box.createVerticalStrut(50));
+        container.add(suggestionsPanel);
 
-        // ================= EVENT =================
+        wrapper.add(container, BorderLayout.NORTH);
+        add(wrapper, BorderLayout.CENTER);
+
         passwordField.addActionListener(e -> checkPassword());
     }
 
@@ -79,9 +133,11 @@ public class PasswordCheckerPanel extends JPanel  {
         String password = passwordField.getText();
 
         if (password.isEmpty()) {
-            strengthLabel.setText("Strength: -");
+            strengthLabel.setText("-");
             strengthBar.setValue(0);
-            suggestionsArea.setText("");
+            suggestionsPanel.removeAll();
+            suggestionsPanel.revalidate();
+            suggestionsPanel.repaint();
             return;
         }
 
@@ -102,8 +158,7 @@ public class PasswordCheckerPanel extends JPanel  {
             String strength = root.get("strength").asText();
             JsonNode details = root.get("details");
 
-            // ================= UI UPDATE =================
-            strengthLabel.setText("Strength: " + strength);
+            strengthLabel.setText(capitalize(strength));
 
             switch (strength.toLowerCase()) {
                 case "weak":
@@ -122,18 +177,27 @@ public class PasswordCheckerPanel extends JPanel  {
                     strengthBar.setValue(0);
             }
 
-            StringBuilder sb = new StringBuilder();
+            suggestionsPanel.removeAll();
+
             if (details.isArray()) {
                 for (JsonNode node : details) {
-                    sb.append("• ").append(node.asText()).append("\n");
+                    JLabel item = new JLabel("– " + node.asText());
+                    item.setForeground(new Color(200, 200, 200));
+                    item.setAlignmentX(Component.LEFT_ALIGNMENT);
+                    suggestionsPanel.add(item);
                 }
             }
 
-            suggestionsArea.setText(sb.toString());
+            suggestionsPanel.revalidate();
+            suggestionsPanel.repaint();
 
         } catch (Exception e) {
             e.printStackTrace();
-            suggestionsArea.setText("Error checking password");
         }
+    }
+
+    private String capitalize(String str) {
+        if (str == null || str.isEmpty()) return str;
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 }
