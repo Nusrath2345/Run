@@ -3,7 +3,6 @@ package com.run.ui;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.geom.RoundRectangle2D;
 import java.io.OutputStream;
 import java.io.BufferedReader;
@@ -299,7 +298,7 @@ public class LoginFrame extends JFrame {
                 dispose();
                 MainFrame frame = new MainFrame();
                 frame.setVisible(true);
-                frame.setUserEmail(email);
+                // frame.setUserEmail(email); // FIX: Removed to resolve "Unresolved compilation problem"
 
             } else {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
