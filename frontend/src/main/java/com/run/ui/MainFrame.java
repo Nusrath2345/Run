@@ -24,22 +24,16 @@ public class MainFrame extends JFrame implements NavigationListener {
     private static final Color TEXT_PRIMARY  = new Color(230, 230, 230);
     private static final Color TEXT_MUTED    = new Color(150, 150, 150);
     private static final Color ACCENT        = new Color(99, 102, 241);
-<<<<<<< HEAD
     private static final Color NAVBAR_BG     = new Color(35, 35, 35);
     private static final Color NAVBAR_BORDER = new Color(55, 55, 55);
     private static final Color AVATAR_BG     = new Color(99, 102, 241);
-=======
->>>>>>> af512ee (add frontend with sidebar navigation and scanner panels)
 
     private final CardLayout cardLayout;
     private final JPanel cardPanel;
     private JButton activeButton;
 
-<<<<<<< HEAD
         private String userEmail = "user@example.com";
 
-=======
->>>>>>> af512ee (add frontend with sidebar navigation and scanner panels)
     public MainFrame() {
         super("Run - Cybersecurity Fundamentals");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,13 +43,10 @@ public class MainFrame extends JFrame implements NavigationListener {
 
         setLayout(new BorderLayout());
 
-<<<<<<< HEAD
         // top navbar
         add(buildNavbar(), BorderLayout.NORTH);
  
 
-=======
->>>>>>> af512ee (add frontend with sidebar navigation and scanner panels)
         // sidebar
         JPanel sidebar = buildSidebar();
         add(sidebar, BorderLayout.WEST);
@@ -77,7 +68,6 @@ public class MainFrame extends JFrame implements NavigationListener {
         cardLayout.show(cardPanel, DASHBOARD);
     }
 
-<<<<<<< HEAD
     private JPanel buildNavbar() {
         JPanel navbar = new JPanel(new BorderLayout());
         navbar.setBackground(NAVBAR_BG);
@@ -126,17 +116,12 @@ public class MainFrame extends JFrame implements NavigationListener {
         return navbar;
     }
 
-=======
->>>>>>> af512ee (add frontend with sidebar navigation and scanner panels)
     private JPanel buildSidebar() {
         JPanel sidebar = new JPanel();
         sidebar.setLayout(new BoxLayout(sidebar, BoxLayout.Y_AXIS));
         sidebar.setBackground(SIDEBAR_BG);
         sidebar.setPreferredSize(new Dimension(200, 0));
         sidebar.setBorder(new EmptyBorder(20, 0, 20, 0));
-<<<<<<< HEAD
- 
-=======
 
         // app title
         JLabel title = new JLabel("  Run");
@@ -146,7 +131,6 @@ public class MainFrame extends JFrame implements NavigationListener {
         title.setBorder(new EmptyBorder(0, 16, 20, 0));
         sidebar.add(title);
 
->>>>>>> af512ee (add frontend with sidebar navigation and scanner panels)
         // tools label
         JLabel toolsLabel = new JLabel("  TOOLS");
         toolsLabel.setFont(new Font("SansSerif", Font.PLAIN, 11));
@@ -154,11 +138,7 @@ public class MainFrame extends JFrame implements NavigationListener {
         toolsLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         toolsLabel.setBorder(new EmptyBorder(0, 16, 8, 0));
         sidebar.add(toolsLabel);
-<<<<<<< HEAD
  
-=======
-
->>>>>>> af512ee (add frontend with sidebar navigation and scanner panels)
         // nav buttons
         activeButton = addNavButton(sidebar, "Dashboard",        DASHBOARD);
         addNavButton(sidebar, "Email scanner",    EMAIL_SCANNER);
@@ -166,18 +146,11 @@ public class MainFrame extends JFrame implements NavigationListener {
         addNavButton(sidebar, "File scanner",     FILE_SCANNER);
         addNavButton(sidebar, "Password checker", PASSWORD_CHECKER);
         addNavButton(sidebar, "Breach checker",   BREACH_CHECKER);
-<<<<<<< HEAD
  
         sidebar.add(Box.createVerticalGlue());
         return sidebar;
     }
  
-=======
-
-        sidebar.add(Box.createVerticalGlue());
-        return sidebar;
-    }
->>>>>>> af512ee (add frontend with sidebar navigation and scanner panels)
 
     private JButton addNavButton(JPanel sidebar, String label, String panelName) {
         JButton btn = new JButton(label);
@@ -230,14 +203,11 @@ public class MainFrame extends JFrame implements NavigationListener {
         return panel;
     }
 
-<<<<<<< HEAD
     // called after login to update the navbar with the real user email
     public void setUserEmail(String email) {
         this.userEmail = email;
     }
 
-=======
->>>>>>> af512ee (add frontend with sidebar navigation and scanner panels)
     @Override
     public void navigateTo(String panelName) {
         cardLayout.show(cardPanel, panelName);
