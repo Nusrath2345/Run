@@ -1,10 +1,9 @@
 package com.run.ui;
 
+import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-
-import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.io.OutputStream;
 import java.io.BufferedReader;
@@ -298,7 +297,10 @@ public class LoginFrame extends JFrame {
 
             if (responseCode == 200) {
                 dispose();
-                new MainFrame().setVisible(true);
+                MainFrame frame = new MainFrame();
+                frame.setVisible(true);
+                frame.setUserEmail(email);
+
             } else {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
                 String line = reader.readLine();
@@ -314,4 +316,5 @@ public class LoginFrame extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new LoginFrame().setVisible(true));
     }
+
 }
