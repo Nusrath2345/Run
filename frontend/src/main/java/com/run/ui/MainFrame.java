@@ -60,7 +60,7 @@ public class MainFrame extends JFrame implements NavigationListener {
         cardPanel.add(new DashboardPanel(this),    DASHBOARD);
         cardPanel.add(new LinkCheckerPanel(this),   LINK_CHECKER);
         cardPanel.add(new FileScannerPanel(this),   FILE_SCANNER);
-        cardPanel.add(makePlaceholder("Email Scanner - Coming Soon"),    EMAIL_SCANNER);
+        cardPanel.add(new EmailScannerPanel(this),    EMAIL_SCANNER);
         cardPanel.add(makePlaceholder("Password Checker - Coming Soon"), PASSWORD_CHECKER);
         cardPanel.add(makePlaceholder("Breach Checker - Coming Soon"),   BREACH_CHECKER);
         cardPanel.add(makePlaceholder("Scan History - Coming Soon"),     SCAN_HISTORY);
