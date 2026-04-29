@@ -69,7 +69,7 @@ public class MainFrame extends JFrame implements NavigationListener {
         sidebar.setBorder(new EmptyBorder(20, 0, 20, 0));
 
         // app title
-        JLabel title = new JLabel("  Run");
+        JLabel title = new JLabel("  Rún");
         title.setFont(new Font("SansSerif", Font.BOLD, 20));
         title.setForeground(TEXT_PRIMARY);
         title.setAlignmentX(Component.LEFT_ALIGNMENT);
