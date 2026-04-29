@@ -31,6 +31,7 @@ public class MainFrame extends JFrame implements NavigationListener {
     private final CardLayout cardLayout;
     private final JPanel cardPanel;
     private JButton activeButton;
+    private JLabel emailLabel;
 
         private String userEmail = "user@example.com";
 
@@ -84,10 +85,10 @@ public class MainFrame extends JFrame implements NavigationListener {
         navbar.add(appName, BorderLayout.WEST);
  
         // right: email + avatar
-        JPanel userSection = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
+        JPanel userSection = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 12));
         userSection.setOpaque(false);
  
-        JLabel emailLabel = new JLabel(userEmail);
+        emailLabel = new JLabel(userEmail);
         emailLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
         emailLabel.setForeground(TEXT_MUTED);
  
@@ -204,9 +205,10 @@ public class MainFrame extends JFrame implements NavigationListener {
     }
 
     // called after login to update the navbar with the real user email
-    public void setUserEmail(String email) {
-        this.userEmail = email;
-    }
+public void setUserEmail(String email) {
+    this.userEmail = email;
+    if (emailLabel != null) emailLabel.setText(email);
+}
 
     @Override
     public void navigateTo(String panelName) {
