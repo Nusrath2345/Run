@@ -5,6 +5,8 @@ import com.run.ui.panels.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import com.run.ui.panels.PasswordCheckerPanel;
+import com.run.ui.panels.BreachCheckerPanel;
 
 // main window with sidebar navigation and content area
 // matches the wireframe layout: dark sidebar on left, panels on right
@@ -51,8 +53,8 @@ public class MainFrame extends JFrame implements NavigationListener {
         cardPanel.add(new LinkCheckerPanel(this),   LINK_CHECKER);
         cardPanel.add(new FileScannerPanel(this),   FILE_SCANNER);
         cardPanel.add(makePlaceholder("Email Scanner - Coming Soon"),    EMAIL_SCANNER);
-        cardPanel.add(makePlaceholder("Password Checker - Coming Soon"), PASSWORD_CHECKER);
-        cardPanel.add(makePlaceholder("Breach Checker - Coming Soon"),   BREACH_CHECKER);
+        cardPanel.add(new PasswordCheckerPanel(this), PASSWORD_CHECKER);
+        cardPanel.add(new BreachCheckerPanel(this), BREACH_CHECKER);
         cardPanel.add(makePlaceholder("Scan History - Coming Soon"),     SCAN_HISTORY);
 
         add(cardPanel, BorderLayout.CENTER);
