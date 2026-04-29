@@ -1,6 +1,8 @@
+package com.run.ui;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
@@ -132,11 +134,17 @@ public class LoginFrame extends JFrame {
         JButton signInButton = styledButton("Sign in");
         signInButton.addActionListener(e -> attemptLogin());
 
-        JLabel forgotLabel = new JLabel("Forgot password?", SwingConstants.CENTER);
+        JLabel forgotLabel = new JLabel("Create Account", SwingConstants.CENTER);
         forgotLabel.setFont(SANS_SMALL);
         forgotLabel.setForeground(TEXT_MUTED);
         forgotLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         forgotLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        forgotLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                new RegisterFrame().setVisible(true);
+            }
+        });
 
         // Add rows to card using GridBagLayout — each row fills full width
         int row = 0;
@@ -290,7 +298,7 @@ public class LoginFrame extends JFrame {
 
             if (responseCode == 200) {
                 dispose();
-                new RunApp().setVisible(true);
+                new MainFrame().setVisible(true);
             } else {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
                 String line = reader.readLine();
