@@ -75,6 +75,7 @@ public class RegisterFrame extends JFrame {
                     emailField.setForeground(TEXT_PRIMARY);
                 }
             }
+
             public void focusLost(java.awt.event.FocusEvent e) {
                 if (emailField.getText().isEmpty()) {
                     emailField.setForeground(TEXT_HINT);
@@ -198,8 +199,34 @@ public class RegisterFrame extends JFrame {
         String email = emailField.getText().trim();
         String password = new String(passwordField.getPassword()).trim();
 
-        if (email.isEmpty() || email.equals(EMAIL_PLACEHOLDER) || password.isEmpty()) {
-            messageLabel.setText("Please enter email and password.");
+        if (email.isEmpty() || email.equals(EMAIL_PLACEHOLDER)) {
+            messageLabel.setForeground(ERROR);
+            messageLabel.setText("Please enter your email.");
+            return;
+        }
+        if (!email.matches("^[\\w._%+\\-]+@[\\w.\\-]+\\.[a-zA-Z]{2,}$")) {
+            messageLabel.setForeground(ERROR);
+            messageLabel.setText("Please enter a valid email address.");
+            return;
+        }
+        if (password.isEmpty()) {
+            messageLabel.setForeground(ERROR);
+            messageLabel.setText("Please enter a password.");
+            return;
+        }
+        if (password.length() < 6) {
+            messageLabel.setForeground(ERROR);
+            messageLabel.setText("Password must be at least 6 characters.");
+            return;
+        }
+        if (!password.matches(".*[A-Z].*")) {
+            messageLabel.setForeground(ERROR);
+            messageLabel.setText("Password must contain an uppercase letter.");
+            return;
+        }
+        if (!password.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?].*")) {
+            messageLabel.setForeground(ERROR);
+            messageLabel.setText("Password must contain a special character.");
             return;
         }
 

@@ -3,9 +3,6 @@ package com.run.ui;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import com.run.ui.MainFrame;
-import com.run.ui.RegisterFrame;
-import com.run.ui.RunApp;
 
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
