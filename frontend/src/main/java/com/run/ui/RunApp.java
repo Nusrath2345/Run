@@ -13,8 +13,7 @@ public class RunApp {
         UIManager.put("OptionPane.messageForeground", new Color(230, 230, 230));
 
         SwingUtilities.invokeLater(() -> {
-            MainFrame frame = new MainFrame();
-            frame.setVisible(true);
+            new LoginFrame().setVisible(true);
         });
     }
 }
