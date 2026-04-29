@@ -3,6 +3,8 @@ package com.run.ui;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import com.run.ui.MainFrame;
+import com.run.ui.RegisterFrame;
 import com.run.ui.RunApp;
 
 import java.awt.*;
@@ -140,7 +142,7 @@ public class LoginFrame extends JFrame {
         forgotLabel.setForeground(TEXT_MUTED);
         forgotLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         forgotLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        
+
         forgotLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 new RegisterFrame().setVisible(true);
@@ -299,7 +301,7 @@ public class LoginFrame extends JFrame {
 
             if (responseCode == 200) {
                 dispose();
-                new RunApp().setVisible(true);
+                new MainFrame().setVisible(true);
             } else {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
                 String line = reader.readLine();
