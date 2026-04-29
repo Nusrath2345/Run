@@ -2,7 +2,7 @@ package com.run.services;
 
 import org.springframework.stereotype.Service;
 import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URI;
 
 
 @Service 
@@ -15,8 +15,8 @@ public class BreachCheckerService
     {
         try 
         {
-            URL url = new URL("https://haveibeenpwned.com/api/v3/breachedaccount/" + email);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            URI uri = URI.create("https://haveibeenpwned.com/api/v3/breachedaccount/" + email);
+            HttpURLConnection conn = (HttpURLConnection) uri.toURL().openConnection();
 
             conn.setRequestMethod("GET");
             conn.setRequestProperty("hibp-api-key", API_KEY);
