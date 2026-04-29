@@ -2,9 +2,6 @@ package com.run.ui;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
-import com.run.ui.RunApp;
-
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.io.OutputStream;
@@ -13,7 +10,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class LoginFrame extends JFrame {
+public class RegisterFrame extends JFrame {
 
     private JTextField emailField;
     private JPasswordField passwordField;
@@ -21,7 +18,6 @@ public class LoginFrame extends JFrame {
 
     private static final String EMAIL_PLACEHOLDER = "user@example.com";
 
-    // Dark mode colours matching wireframe
     private static final Color BG = new Color(13, 13, 13);
     private static final Color CARD_BG = new Color(22, 22, 22);
     private static final Color ICON_BG = new Color(32, 32, 32);
@@ -39,10 +35,9 @@ public class LoginFrame extends JFrame {
     private static final Font SANS_SMALL = new Font("Segoe UI", Font.PLAIN, 11);
     private static final Font SANS_LABEL = new Font("Segoe UI", Font.PLAIN, 10);
 
-    public LoginFrame() {
-        setTitle("Rún - Login");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setUndecorated(false);
+    public RegisterFrame() {
+        setTitle("Rún - Create Account");
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         setBackground(BG);
 
@@ -50,10 +45,10 @@ public class LoginFrame extends JFrame {
         outer.setBackground(BG);
         outer.setBorder(new EmptyBorder(40, 40, 40, 40));
 
-        RoundedPanel card = new RoundedPanel(14, CARD_BG, BORDER);
+        LoginFrame.RoundedPanel card = new LoginFrame.RoundedPanel(14, CARD_BG, BORDER);
         card.setLayout(new GridBagLayout());
         card.setBorder(new EmptyBorder(32, 36, 28, 36));
-        card.setPreferredSize(new Dimension(420, 420));
+        card.setPreferredSize(new Dimension(420, 400));
 
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
@@ -61,48 +56,13 @@ public class LoginFrame extends JFrame {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.CENTER;
 
-        // Lock icon panel
-        JPanel iconPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                Graphics2D g2 = (Graphics2D) g.create();
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setColor(ICON_BG);
-                g2.fill(new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(), 12, 12));
-                g2.setColor(BORDER);
-                g2.setStroke(new BasicStroke(0.5f));
-                g2.draw(new RoundRectangle2D.Float(0.5f, 0.5f, getWidth() - 1, getHeight() - 1, 12, 12));
-                int cx = getWidth() / 2;
-                int cy = getHeight() / 2;
-                g2.setColor(TEXT_MUTED);
-                g2.setStroke(new BasicStroke(1.5f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-                g2.drawArc(cx - 7, cy - 13, 14, 13, 0, 180);
-                g2.setColor(new Color(50, 50, 50));
-                g2.fillRoundRect(cx - 9, cy - 2, 18, 13, 3, 3);
-                g2.setColor(TEXT_MUTED);
-                g2.setStroke(new BasicStroke(1f));
-                g2.drawRoundRect(cx - 9, cy - 2, 18, 13, 3, 3);
-                g2.dispose();
-            }
-        };
-
-        iconPanel.setOpaque(false);
-        iconPanel.setPreferredSize(new Dimension(48, 48));
-        iconPanel.setMaximumSize(new Dimension(48, 48));
-
-        JPanel iconWrap = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        iconWrap.setOpaque(false);
-        iconWrap.add(iconPanel);
-
-        JLabel titleLabel = new JLabel("Rún", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("Create Account", SwingConstants.CENTER);
         titleLabel.setFont(SANS_TITLE);
         titleLabel.setForeground(TEXT_PRIMARY);
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel subtitleLabel = new JLabel("Sign in to your account", SwingConstants.CENTER);
+        JLabel subtitleLabel = new JLabel("Register a new account", SwingConstants.CENTER);
         subtitleLabel.setFont(SANS_SMALL);
         subtitleLabel.setForeground(TEXT_MUTED);
-        subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         emailField = new JTextField();
         styleInput(emailField);
@@ -115,7 +75,6 @@ public class LoginFrame extends JFrame {
                     emailField.setForeground(TEXT_PRIMARY);
                 }
             }
-
             public void focusLost(java.awt.event.FocusEvent e) {
                 if (emailField.getText().isEmpty()) {
                     emailField.setForeground(TEXT_HINT);
@@ -130,29 +89,21 @@ public class LoginFrame extends JFrame {
         messageLabel = new JLabel(" ", SwingConstants.CENTER);
         messageLabel.setFont(SANS_SMALL);
         messageLabel.setForeground(ERROR);
-        messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton signInButton = styledButton("Sign in");
-        signInButton.addActionListener(e -> attemptLogin());
+        JButton registerButton = styledButton("Create Account");
+        registerButton.addActionListener(e -> attemptRegister());
 
-        JLabel forgotLabel = new JLabel("Create Account", SwingConstants.CENTER);
-        forgotLabel.setFont(SANS_SMALL);
-        forgotLabel.setForeground(TEXT_MUTED);
-        forgotLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        forgotLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        
-        forgotLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+        JLabel backLabel = new JLabel("Back to Sign In", SwingConstants.CENTER);
+        backLabel.setFont(SANS_SMALL);
+        backLabel.setForeground(TEXT_MUTED);
+        backLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        backLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                new RegisterFrame().setVisible(true);
+                dispose();
             }
         });
 
-        // Add rows to card using GridBagLayout — each row fills full width
         int row = 0;
-
-        c.gridy = row++;
-        c.insets = new Insets(0, 0, 14, 0);
-        card.add(iconWrap, c);
 
         c.gridy = row++;
         c.insets = new Insets(0, 0, 4, 0);
@@ -186,12 +137,12 @@ public class LoginFrame extends JFrame {
 
         c.gridy = row++;
         c.insets = new Insets(0, 0, 12, 0);
-        signInButton.setPreferredSize(new Dimension(0, 38));
-        card.add(signInButton, c);
+        registerButton.setPreferredSize(new Dimension(0, 38));
+        card.add(registerButton, c);
 
         c.gridy = row++;
         c.insets = new Insets(0, 0, 0, 0);
-        card.add(forgotLabel, c);
+        card.add(backLabel, c);
 
         outer.add(card);
         setContentPane(outer);
@@ -228,11 +179,9 @@ public class LoginFrame extends JFrame {
                 g2.setStroke(new BasicStroke(0.5f));
                 g2.draw(new RoundRectangle2D.Float(0.5f, 0.5f, getWidth() - 1, getHeight() - 1, 8, 8));
                 g2.dispose();
-
                 super.paintComponent(g);
             }
         };
-
         button.setFont(SANS);
         button.setForeground(TEXT_PRIMARY);
         button.setBackground(BUTTON_BG);
@@ -242,38 +191,10 @@ public class LoginFrame extends JFrame {
         button.setOpaque(false);
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         button.setBorder(new EmptyBorder(9, 20, 9, 20));
-        button.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
-        button.setAlignmentX(Component.CENTER_ALIGNMENT);
         return button;
     }
 
-    static class RoundedPanel extends JPanel {
-        private final int radius;
-        private final Color bg;
-        private final Color border;
-
-        RoundedPanel(int radius, Color bg, Color border) {
-            this.radius = radius;
-            this.bg = bg;
-            this.border = border;
-            setOpaque(false);
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            Graphics2D g2 = (Graphics2D) g.create();
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.setColor(bg);
-            g2.fill(new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(), radius * 2, radius * 2));
-            g2.setColor(border);
-            g2.setStroke(new BasicStroke(0.5f));
-            g2.draw(new RoundRectangle2D.Float(0.5f, 0.5f, getWidth() - 1, getHeight() - 1, radius * 2, radius * 2));
-            g2.dispose();
-            super.paintComponent(g);
-        }
-    }
-
-    private void attemptLogin() {
+    private void attemptRegister() {
         String email = emailField.getText().trim();
         String password = new String(passwordField.getPassword()).trim();
 
@@ -283,7 +204,7 @@ public class LoginFrame extends JFrame {
         }
 
         try {
-            URL url = new URL("http://localhost:8080/api/auth/login");
+            URL url = new URL("http://localhost:8080/api/auth/register");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
@@ -298,21 +219,18 @@ public class LoginFrame extends JFrame {
             int responseCode = conn.getResponseCode();
 
             if (responseCode == 200) {
-                dispose();
-                new RunApp().setVisible(true);
+                messageLabel.setForeground(new Color(70, 180, 70));
+                messageLabel.setText("Account created! You can now sign in.");
             } else {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
                 String line = reader.readLine();
                 reader.close();
-                messageLabel.setText("Access Denied: " + (line != null ? line : responseCode));
+                messageLabel.setForeground(ERROR);
+                messageLabel.setText(line != null ? line : "Registration failed.");
             }
 
         } catch (Exception ex) {
             messageLabel.setText("Error: " + ex.getMessage());
         }
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new LoginFrame().setVisible(true));
     }
 }
