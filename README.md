@@ -4,7 +4,7 @@
 
 | Name | Student Number | Module |
 |------|---------------|--------|
-| Adam Durand | G00405974 | Scan History |
+| Adam Durand | G00405974 | Scan History | Dashboard |
 | Fionn Qualter | G00428202 | Link Checker, File Scanner |
 | Nusrathara Hanif | G00415420 | Login, Email Scanner |
 | Callum Stewart | G00432230 | Password Checker, Data Breach Checker |
