@@ -1,27 +1,31 @@
 package com.run.ui.panels;
-
+ 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-
+ 
 public class HelpPanel extends JPanel {
-
+ 
+    private static final Color BG_DARK      = new Color(30, 30, 30);
+    private static final Color TEXT_PRIMARY = new Color(230, 230, 230);
+    private static final Color TEXT_MUTED   = new Color(150, 150, 150);
+    private static final Color ACCENT       = new Color(99, 102, 241);
+ 
     public HelpPanel() {
         setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
-
-        // --- Title ---
+        setBackground(BG_DARK);
+ 
         JLabel title = new JLabel("Help & FAQ");
         title.setFont(new Font("SansSerif", Font.BOLD, 22));
-        title.setBorder(new EmptyBorder(20, 20, 10, 20));
+        title.setForeground(TEXT_PRIMARY);
+        title.setBorder(new EmptyBorder(28, 32, 12, 32));
         add(title, BorderLayout.NORTH);
-
-        // --- FAQ content panel ---
+ 
         JPanel faqPanel = new JPanel();
         faqPanel.setLayout(new BoxLayout(faqPanel, BoxLayout.Y_AXIS));
-        faqPanel.setBackground(Color.WHITE);
-        faqPanel.setBorder(new EmptyBorder(10, 20, 20, 20));
-
+        faqPanel.setBackground(BG_DARK);
+        faqPanel.setBorder(new EmptyBorder(10, 32, 32, 32));
+ 
         String[][] faqs = {
             {
                 "What does the link checker do?",
@@ -62,7 +66,7 @@ public class HelpPanel extends JPanel {
                 "previously flagged links, files, or passwords and revisit any that need attention."
             }
         };
-
+ 
         for (int i = 0; i < faqs.length; i++) {
             faqPanel.add(buildFaqEntry(faqs[i][0], faqs[i][1]));
             if (i < faqs.length - 1) {
@@ -71,39 +75,41 @@ public class HelpPanel extends JPanel {
                 faqPanel.add(Box.createVerticalStrut(12));
             }
         }
-
+ 
         JScrollPane scrollPane = new JScrollPane(faqPanel);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.setBackground(BG_DARK);
+        scrollPane.getViewport().setBackground(BG_DARK);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         add(scrollPane, BorderLayout.CENTER);
     }
-
+ 
     private JPanel buildFaqEntry(String question, String answer) {
         JPanel entry = new JPanel();
         entry.setLayout(new BoxLayout(entry, BoxLayout.Y_AXIS));
-        entry.setBackground(Color.WHITE);
+        entry.setOpaque(false);
         entry.setAlignmentX(Component.LEFT_ALIGNMENT);
-
+ 
         JLabel qLabel = new JLabel("<html><b>Q: " + question + "</b></html>");
         qLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
-        qLabel.setForeground(new Color(30, 100, 180));
+        qLabel.setForeground(ACCENT);
         qLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
+ 
         JLabel aLabel = new JLabel("<html><p style='width:520px'>" + answer + "</p></html>");
         aLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
-        aLabel.setForeground(new Color(50, 50, 50));
+        aLabel.setForeground(TEXT_MUTED);
         aLabel.setBorder(new EmptyBorder(6, 0, 0, 0));
         aLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
+ 
         entry.add(qLabel);
         entry.add(aLabel);
         return entry;
     }
-
+ 
     private JSeparator buildDivider() {
         JSeparator sep = new JSeparator(SwingConstants.HORIZONTAL);
         sep.setMaximumSize(new Dimension(Integer.MAX_VALUE, 1));
-        sep.setForeground(new Color(220, 220, 220));
+        sep.setForeground(new Color(60, 60, 60));
         return sep;
     }
 }
